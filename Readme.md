@@ -58,5 +58,5 @@ Instead of passing hidden states through $L$ distinct layer weights:
 
 ### Author
 
-Developed by **[Your Name]** ([@kivitas](https://github.com/kivitas))  
+Developed by **Kivitas** ([@kivitas](https://github.com/kivitas))  
 *Building AI-native memory systems and parameter-efficient model architectures.*
