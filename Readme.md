@@ -1,4 +1,4 @@
-# `loop-100m`
+# `EOS LLM`
 
 > **A 100M-parameter looped Transformer architecture exploring depth-recurrent weight sharing for extreme parameter efficiency.**
 
