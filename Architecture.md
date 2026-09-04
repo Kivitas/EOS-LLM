@@ -16,16 +16,17 @@ graph TD
     A["Input Token Stream (16k Context)"] --> B["Token Embeddings & YaRN RoPE"]
     B --> C["Pre-Loop Transformer Layer (Layer 0)"]
     C --> D["Parameter-Shared Recurrent Core (Layers 1-4)"]
-    
-    subgraph Recurrent Loop Core [Recurrent Core: Up to 12 Loops]
+
+    subgraph RecurrentLoopCore["Recurrent Core: Up to 12 Loops"]
         D1["FiLM Step Modulation"] --> D2["Multi-Latent Attention (MLA + QK-Norm)"]
         D2 --> D3["GroupedGEMM Sparse MoE (Top-2 / 4 Experts)"]
         D3 --> D4["Damped Anderson Fixed-Point Gating"]
         D4 --> D5{"Entropy-Gated ACT / Loop Bypass"}
+        D5 -->|"Continue Loop"| D1
     end
-    
-    D --> Recurrent Loop Core
-    Recurrent Loop Core -- "Halt / Exit" --> E["Post-Loop Transformer Layer (Layer 5)"]
+
+    D --> D1
+    D5 -->|"Halt / Exit"| E["Post-Loop Transformer Layer (Layer 5)"]
     E --> F["RMSNorm & Gemma-2 Logit Soft-Capping"]
     F --> G["True Chunked Cross-Entropy / LM Head"]
 ```
